@@ -1,17 +1,18 @@
 {
 	"name": "backend",
 	"version": "1.0.0",
-	"description": "GoalSetter App",
+	"description": "",
 	"main": "server.js",
 	"scripts": {
-		"start": "node backend/server.js",
-		"server": "nodemon backend/server.js"
+		"start": "node server.js",
+		"dev": "node --watch --env-file=.env server"
 	},
 	"author": "Gideon Musango",
 	"license": "MIT",
 	"dependencies": {
 		"colors": "^1.4.0",
 		"express": "^5.1.0",
+		"express-async-handler": "^1.2.0",
 		"mongoose": "^8.19.3"
 	},
 	"devDependencies": {
