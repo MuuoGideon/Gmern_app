@@ -29,10 +29,9 @@ app.use('/api/goals', goals);
 
 // Serve frontend in production
 if (process.env.NODE_ENV === 'production') {
-	// Serve static files
 	app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-	// Catch all routes not starting with /api
+	// Match all routes except /api
 	app.get(/^\/(?!api).*/, (req, res) => {
 		res.sendFile(path.resolve(__dirname, '../frontend/dist', 'index.html'));
 	});
