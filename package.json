@@ -1,19 +1,22 @@
 {
+	"type": "module",
 	"name": "backend",
 	"version": "1.0.0",
-	"description": "",
+	"description": "MERN Goals App Backend",
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js",
-		"dev": "node --watch --env-file=.env server"
+		"build": "cd ../frontend && npm install && npm run build",
+		"dev": "nodemon server.js"
 	},
 	"author": "Gideon Musango",
 	"license": "MIT",
 	"dependencies": {
 		"colors": "^1.4.0",
+		"dotenv": "^16.4.5",
 		"express": "^5.1.0",
 		"express-async-handler": "^1.2.0",
-		"mongoose": "^8.19.3"
+		"mongoose": "^8.6.0"
 	},
 	"devDependencies": {
 		"nodemon": "^3.1.10"

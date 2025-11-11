@@ -1,22 +1,17 @@
-const express = require('express');
-const {
+import express from 'express';
+import {
 	getGoals,
+	getGoal,
 	createGoal,
 	updateGoal,
 	deleteGoal,
-} = require('../controllers/goalController');
+} from '../controllers/goalController.js';
+
 const router = express.Router();
 
-// Get all goals
-router.get('/', getGoals);
+// CRUD routes
+router.route('/').get(getGoals).post(createGoal);
 
-// Create a goal
-router.post('/', createGoal);
+router.route('/:id').get(getGoal).put(updateGoal).delete(deleteGoal);
 
-// Update a goal
-router.put('/:id', updateGoal);
-
-// Delete a goal
-router.delete('/:id', deleteGoal);
-
-module.exports = router;
+export default router;
