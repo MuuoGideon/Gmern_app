@@ -19,7 +19,7 @@ const app = express();
 app.use(
 	cors({
 		origin: [
-			'https://new-vercel-url.vercel.app', // new frontend URL
+			'https://saletracker-frontend-r693.vercel.app', // new frontend URL
 			'http://localhost:5173', // dev
 		],
 		credentials: true,
