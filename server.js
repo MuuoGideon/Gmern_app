@@ -1,48 +1,39 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import colors from 'colors';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import goals from './routes/goalRoutes.js';
+import dotenv from 'dotenv';
+dotenv.config();
+import cors from 'cors';
 import errorHandler from './middleware/errorMiddleware.js';
+import saleRoutes from './routes/saleRoutes.js';
+
 import connectDB from './config/db.js';
 
-// Load environment variables
-dotenv.config();
-
-// Setup __dirname for ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const port = process.env.PORT || 5000;
 
 // Connect to MongoDB
 connectDB();
 
+// Initialize express
 const app = express();
-const port = process.env.PORT || 5000;
 
-// Middleware
+app.use(
+	cors({
+		origin: ['http://localhost:5173', 'https://your-vercel-domain.vercel.app'],
+		credentials: true,
+	})
+);
+
+// Body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// API routes
-app.use('/api/goals', goals);
+// Sales API routes
+app.use('/api/sales', saleRoutes);
 
-// Serve frontend in production
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static(path.join(__dirname, '../frontend/dist')));
-
-	// Match all routes except /api
-	app.get(/^\/(?!api).*/, (req, res) => {
-		res.sendFile(path.resolve(__dirname, '../frontend/dist', 'index.html'));
-	});
-} else {
-	app.get('/', (req, res) => res.send('API is running...'));
-}
-
-// Error handler
+// Error handler middleware
 app.use(errorHandler);
 
 // Start server
 app.listen(port, () =>
-	console.log(colors.cyan.bold(`Server started on port ${port}`))
+	console.log(`Server running on port: ${port}`.green.bold)
 );
